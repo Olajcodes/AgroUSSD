@@ -15,7 +15,7 @@ class Buyer(User):
         return details
 
     def registration(self):
-        file_path = "/database/buyer.json"
+        file_path = r"database\buyer.json"
         # Make sure file exist
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         try:
@@ -64,7 +64,7 @@ class Buyer(User):
         Look up a buyer by phone number.
         Returns dict if found, else None.
         """
-        file_path = "/database/buyer.json"
+        file_path = r"database\buyer.json"
         if not os.path.exists(file_path):
             return None
 
@@ -77,3 +77,59 @@ class Buyer(User):
         except (json.JSONDecodeError, FileNotFoundError):
             return None
         return None
+    
+    
+    # For profile management
+    @staticmethod
+    def update_profile(phone_number):
+        file_path = r"database\buyer.json"
+        if not os.path.exists(file_path):
+            print("No buyer database found.")
+            return
+
+        with open(file_path, "r+", encoding="utf-8") as file:
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                print("Database corrupted.")
+                return
+
+            buyer = next((b for b in data if b.get("Phone Number") == phone_number), None)
+            if not buyer:
+                print("Buyer not found.")
+                return
+
+            print("\n=== PROFILE MANAGEMENT (Buyer) ===")
+            print("1. Update Name")
+            print("2. Update Location")
+            print("3. Update Phone Number")
+            print("4. Change PIN")
+            print("5. Update Product")
+            print("0. Exit")
+
+            choice = input("Select an option: ").strip()
+            if choice == "1":
+                buyer["Name"] = input("Enter new name: ").strip().title()
+            elif choice == "2":
+                buyer["Location"] = input("Enter new location: ").strip().title()
+            elif choice == "3":
+                buyer["Phone Number"] = input("Enter new phone number: ").strip()
+            elif choice == "4":
+                new_pin = input("Enter new 4-digit PIN: ").strip()
+                if new_pin.isdigit() and len(new_pin) == 4:
+                    buyer["Pin"] = new_pin
+                else:
+                    print("Invalid PIN. Must be 4 digits.")
+            elif choice == "5":
+                buyer["Product"] = input("Enter new product: ").strip()
+            elif choice == "0":
+                print("Exiting profile management...")
+                return
+            else:
+                print("Invalid option.")
+                return
+
+            file.seek(0)
+            json.dump(data, file, indent=4)
+            file.truncate()
+            print("Profile updated successfully.")

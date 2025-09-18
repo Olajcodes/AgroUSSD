@@ -18,7 +18,7 @@ class Farmer(User):
         return details
     
     def registration(self):
-        file_path = "/database/farmer.json"
+        file_path = r"database\farmer.json"
         # Make sure file exist
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
 
@@ -84,3 +84,62 @@ class Farmer(User):
         except (json.JSONDecodeError, FileNotFoundError):
             return None
         return None
+    
+    
+    # For profile management
+    @staticmethod
+    def update_profile(phone_number):
+        file_path = r"database\farmer.json"
+        if not os.path.exists(file_path):
+            print("No farmer database found.")
+            return
+
+        with open(file_path, "r+", encoding="utf-8") as file:
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                print("Database corrupted.")
+                return
+
+            farmer = next((f for f in data if f.get("Phone Number") == phone_number), None)
+            if not farmer:
+                print("Farmer not found.")
+                return
+
+            print("\n=== PROFILE MANAGEMENT (Farmer) ===")
+            print("1. Update Name")
+            print("2. Update Location")
+            print("3. Update Phone Number")
+            print("4. Change PIN")
+            print("5. Update Farm Size")
+            print("6. Update Primary Crop")
+            print("0. Exit")
+
+            choice = input("Select an option: ").strip()
+            if choice == "1":
+                farmer["Name"] = input("Enter new name: ").strip().title()
+            elif choice == "2":
+                farmer["Location"] = input("Enter new location: ").strip().title()
+            elif choice == "3":
+                farmer["Phone Number"] = input("Enter new phone number: ").strip()
+            elif choice == "4":
+                new_pin = input("Enter new 4-digit PIN: ").strip()
+                if new_pin.isdigit() and len(new_pin) == 4:
+                    farmer["Pin"] = new_pin
+                else:
+                    print("Invalid PIN. Must be 4 digits.")
+            elif choice == "5":
+                farmer["Farm Size"] = input("Enter new farm size: ").strip()
+            elif choice == "6":
+                farmer["Primary Crop"] = input("Enter new primary crop: ").strip()
+            elif choice == "0":
+                print("Exiting profile management...")
+                return
+            else:
+                print("Invalid option.")
+                return
+
+            file.seek(0)
+            json.dump(data, file, indent=4)
+            file.truncate()
+            print("Profile updated successfully.")

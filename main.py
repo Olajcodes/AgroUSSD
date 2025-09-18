@@ -1,14 +1,15 @@
 from models.buyer import Buyer
 from models.farmer import Farmer
+from models.login import login_user
 
 def main_menu():
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
-    print(" ----- Welcome to USSD Digital Marketplace ------ ")
-    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    title = "Welcome to USSD Digital Marketplace"
+    print("~" *50)
+    print(f"{title:^50}")
+    print("~" *50)
     print("1. Register")
     print("2. Login")
     print("3. Exit")
-    print("")
 
 def get_pin():
     while True:
@@ -19,7 +20,7 @@ def get_pin():
 
 while True:
     main_menu()
-    choice = input("Hello, what would you like to do today? Please select from options 1 to 3: ")
+    choice = input("Hello, what would you like to do today? Please select from options 1 to 3 above: ")
 
     if not choice.isdigit() or int(choice) not in (1, 2, 3):
         print("Oops! Wrong input. Please enter a number between 1 and 3.")
@@ -59,8 +60,9 @@ while True:
             location = input("Enter your Location (e.g Lagos): ")
             phone_number = input("Enter your phone number: ")
             pin = get_pin()
+            product = input("Enter the product you want to buy (e.g vegetables, beans): ")
 
-            buyer = Buyer(name, phone_number, location, pin)
+            buyer = Buyer(name, phone_number, location, pin, product)
             buyer.registration()
 
         elif option == 3:
@@ -70,9 +72,9 @@ while True:
             print("Invalid option, please try again.")
 
     elif choice == 2:
-        # TODO: implement login flow
-        print("Login feature coming soon...")
+        # Calling the function for user's login
+        login_user()
 
     elif choice == 3:
-        print("Goodbye!")
+        print("\nThanks for using Digital Marketplace. Goodbye!")
         break
