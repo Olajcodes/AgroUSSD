@@ -1,4 +1,5 @@
 from models.user import User
+import os
 
 # Farmer's Method: Inherit Class User
 class Farmer(User):
@@ -14,3 +15,8 @@ class Farmer(User):
             "Primary Crop": self.primary_crop
         })
         return details
+    
+    def registration(self):
+        file_path = "../database/farmer.json"
+        # Make sure file exist
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
