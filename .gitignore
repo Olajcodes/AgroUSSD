@@ -1,1 +1,6 @@
-__pycache__
+models/__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+database/*.json
