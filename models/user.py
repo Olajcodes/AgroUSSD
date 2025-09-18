@@ -1,10 +1,10 @@
 
 class User:
-    def __init__(self, name, phone_number, location, pin = 0000):
+    def __init__(self, name, phone_number, location, pin = "0000"):
         self.name = name
         self.phone_number = phone_number
         self.location = location
-        self.pin = pin
+        self.pin = str(pin)
         
     # To get user details
     def user_details(self):
