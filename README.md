@@ -31,6 +31,7 @@ Data is stored in lightweight JSON files (database/farmer.json, database/buyer.j
 
 
 ### **Project Structure**
+```
 ├── main.py                # Entry point (menus & navigation)
 ├── models/
 │   ├── user.py            # Base User class
@@ -40,3 +41,4 @@ Data is stored in lightweight JSON files (database/farmer.json, database/buyer.j
 │   ├── farmer.json        # Farmer data storage
 │   ├── buyer.json         # Buyer data storage
 └── README.md              # Project documentation
+```
