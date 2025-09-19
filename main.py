@@ -3,13 +3,24 @@ from models.farmer import Farmer
 from models.login import login_user
 
 def main_menu():
-    title = "Welcome to USSD Digital Marketplace"
-    print("~" *50)
-    print(f"{title:^50}")
-    print("~" *50)
-    print("1. Register")
-    print("2. Login")
-    print("3. Exit")
+    while True:
+        code = input("Dial *222# to access the platform: ")
+        try:
+            if code != "*222#":
+                print("Invalid code. Kindly Try Again!")
+            else: 
+                RED = '\033[91m'
+                END = '\033[0m'
+                title = "Welcome to Farm2Market"
+                print("~" *50)
+                print(f"\033[1m {RED} {title:^50} {END}")
+                print("~" *50)
+                print("1. Register")
+                print("2. Login")
+                print("3. Exit")
+                break
+        except Exception as e:
+            print("Unexpected Error: ", e)
 
 def get_pin():
     while True:
