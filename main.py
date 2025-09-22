@@ -3,11 +3,12 @@ from models.farmer import Farmer
 from models.login import login_user
 
 def main_menu():
+    code = input("Dial *222# to access the platform: ")
     while True:
-        code = input("Dial *222# to access the platform: ")
         try:
             if code != "*222#":
                 print("Invalid code. Kindly Try Again!")
+                code = input("Dial *222# to access the platform: ")
             else: 
                 RED = '\033[91m'
                 END = '\033[0m'
@@ -55,23 +56,23 @@ while True:
 
         if option == 1:
             # Farmer registration
-            name = input("Enter your fullname: ")
-            location = input("Enter your Location (e.g Ibadan): ")
+            name = input("Hello. Kindly tell us your name: ")
+            location = input("What is your location: ")
             phone_number = input("Enter your phone number: ")
             pin = get_pin()
-            farm_size = input("Enter your farm size (e.g 10 acres): ")
-            primary_crop = input("Enter your primary crop (e.g tomato, yam, maize): ")
+            farm_size = input("How large is your farm in plots? (e.g 4 plots): ")
+            primary_crop = input("What are your primary crops?: ")
 
             farmer = Farmer(name, phone_number, location, pin, farm_size, primary_crop)
             farmer.registration()
 
         elif option == 2:
             # Buyer registration
-            name = input("Enter your fullname: ")
-            location = input("Enter your Location (e.g Lagos): ")
-            phone_number = input("Enter your phone number: ")
+            name = input("Hi! Please tell us your fullname: ")
+            location = input("Kindly enter your Location (e.g Lagos): ")
+            phone_number = input("Please enter your phone number: ")
             pin = get_pin()
-            product = input("Enter the product you want to buy (e.g vegetables, beans): ")
+            product = input("What product(s) do you want to buy (e.g vegetables, beans): ")
 
             buyer = Buyer(name, phone_number, location, pin, product)
             buyer.registration()
@@ -87,5 +88,5 @@ while True:
         login_user()
 
     elif choice == 3:
-        print("\nThanks for using Digital Marketplace. Goodbye!")
+        print("\nThanks for using Farm2Market. Goodbye!")
         break

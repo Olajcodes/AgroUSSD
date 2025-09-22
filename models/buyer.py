@@ -41,8 +41,8 @@ class Buyer(User):
                 json.dump(data, file, indent=4)
                 file.truncate()
 
-            print(f"Buyer {self.name} registered successfully with PIN {self.pin}.")
-            print("Make sure you keep your PIN safe.. Thank you")
+            print(f"Congratulations! Buyer {self.name} registered successfully\nBelow is your pin: {self.pin}.")
+            print("Please ensure not to share your pin with anyone. Thank you")
             return False
 
         except FileNotFoundError:
